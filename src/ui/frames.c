@@ -43,7 +43,7 @@
 
 static void meta_frames_class_init (MetaFramesClass *klass);
 static void meta_frames_init       (MetaFrames      *frames);
-static void meta_frames_destroy    (GtkObject       *object);
+static void meta_frames_destroy    (GtkWidget       *object);
 static void meta_frames_finalize   (GObject         *object);
 static void meta_frames_style_set  (GtkWidget       *widget,
                                     GtkStyle        *prev_style);
@@ -137,17 +137,15 @@ static void
 meta_frames_class_init (MetaFramesClass *class)
 {
   GObjectClass   *gobject_class;
-  GtkObjectClass *object_class;
   GtkWidgetClass *widget_class;
 
   gobject_class = G_OBJECT_CLASS (class);
-  object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
 
   parent_class = g_type_class_peek_parent (class);
 
   gobject_class->finalize = meta_frames_finalize;
-  object_class->destroy = meta_frames_destroy;
+  widget_class->destroy = meta_frames_destroy;
 
   widget_class->style_set = meta_frames_style_set;
 
@@ -232,7 +230,7 @@ listify_func (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-meta_frames_destroy (GtkObject *object)
+meta_frames_destroy (GtkWidget *object)
 {
   GSList *winlist;
   GSList *tmp;
@@ -256,7 +254,7 @@ meta_frames_destroy (GtkObject *object)
     }
   g_slist_free (winlist);
 
-  GTK_OBJECT_CLASS (parent_class)->destroy (object);
+  GTK_WIDGET_CLASS (parent_class)->destroy (object);
 }
 
 static void

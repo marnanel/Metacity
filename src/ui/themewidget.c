@@ -64,10 +64,8 @@ static void
 meta_area_class_init (MetaAreaClass *class)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (class);
-  GtkObjectClass *object_class;
   GtkWidgetClass *widget_class;
 
-  object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
   parent_class = g_type_class_peek (gtk_misc_get_type ());
 

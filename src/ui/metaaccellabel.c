@@ -39,7 +39,7 @@
 
 static void     meta_accel_label_class_init   (MetaAccelLabelClass *klass);
 static void     meta_accel_label_init         (MetaAccelLabel      *accel_label);
-static void     meta_accel_label_destroy      (GtkObject           *object);
+static void     meta_accel_label_destroy      (GtkWidget          *object);
 static void     meta_accel_label_finalize     (GObject             *object);
 static void     meta_accel_label_size_request (GtkWidget           *widget,
                                                GtkRequisition      *requisition);
@@ -82,14 +82,13 @@ static void
 meta_accel_label_class_init (MetaAccelLabelClass *class)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (class);
-  GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
   parent_class = g_type_class_peek_parent (class);
 
   gobject_class->finalize = meta_accel_label_finalize;
 
-  object_class->destroy = meta_accel_label_destroy;
+  widget_class->destroy = meta_accel_label_destroy;
 
   widget_class->size_request = meta_accel_label_size_request;
   widget_class->expose_event = meta_accel_label_expose_event;
@@ -186,7 +185,7 @@ meta_accel_label_new_with_mnemonic (const gchar *string)
 }
 
 static void
-meta_accel_label_destroy (GtkObject *object)
+meta_accel_label_destroy (GtkWidget *object)
 {
   MetaAccelLabel *accel_label = META_ACCEL_LABEL (object);
 
@@ -197,7 +196,7 @@ meta_accel_label_destroy (GtkObject *object)
   accel_label->accel_mods = 0;
   accel_label->accel_key = 0;
 
-  GTK_OBJECT_CLASS (parent_class)->destroy (object);
+  GTK_WIDGET_CLASS (parent_class)->destroy (object);
 }
 
 static void
