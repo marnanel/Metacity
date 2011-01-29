@@ -2138,7 +2138,14 @@ meta_window_show (MetaWindow *window)
       ( (!place_on_top_on_map && !takes_focus_on_map) ||
       window_would_be_covered (window) )
     ) {
-      if (meta_window_is_ancestor_of_transient (focus_window, window))
+
+      /* META_WINDOW_UTILITY/META_WINDOW_TOOLBAR are usually small persistent
+       * utility window such as toolbar, palette or toolbox and are not
+       * considered transient since it is usual to keep them open while working
+       */
+      if ((window->type != META_WINDOW_UTILITY &&
+          window->type != META_WINDOW_TOOLBAR) &&
+          meta_window_is_ancestor_of_transient (focus_window, window))
         {
           /* This happens for error dialogs or alerts; these need to remain on
            * top, but it would be confusing to have its ancestor remain
